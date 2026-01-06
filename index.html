@@ -1,0 +1,464 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KL University Canteen Portal</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+*{box-sizing:border-box}
+body{
+    margin:0;
+    font-family:"Poppins",sans-serif;
+    background:#f4f6f9;
+}
+a{text-decoration:none;color:inherit}
+
+/* ================= HEADER ================= */
+header{
+    background:linear-gradient(90deg,#ff6a00,#ff9d3c);
+    padding:22px 50px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:fixed;
+    top:0;
+    width:100%;
+    z-index:1000;
+    box-shadow:0 4px 18px rgba(0,0,0,0.3);
+}
+.header-left{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    color:white;
+}
+.header-left i{
+    font-size:30px;
+    background:white;
+    color:#ff6a00;
+    padding:12px;
+    border-radius:50%;
+}
+header h1{
+    margin:0;
+    font-size:30px;
+    font-weight:700;
+}
+.header-icons i{
+    margin-left:12px;
+    font-size:20px;
+    color:white;
+    opacity:0.9;
+}
+nav a{
+    margin-left:28px;
+    color:white;
+    font-weight:500;
+    font-size:18px;
+    position:relative;
+}
+nav a::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-8px;
+    width:0;
+    height:2px;
+    background:white;
+    transition:.3s;
+}
+nav a:hover::after{width:100%}
+
+/* ================= HERO ================= */
+.hero{
+    height:100vh;
+    width:100%;
+    position:relative;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    text-align:center;
+    color:white;
+    overflow:hidden;
+    padding-top:120px;
+}
+.hero-slides{
+    position:absolute;
+    inset:0;
+    z-index:-2;
+}
+.hero-slides img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center;
+    position:absolute;
+    inset:0;
+    opacity:0;
+    transition:opacity 1.2s ease-in-out, transform 6s ease;
+}
+.hero::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,0.55);
+    z-index:-1;
+}
+.hero h2{
+    font-size:46px;
+    font-weight:700;
+    color:#ffd369;
+}
+.hero p{
+    font-size:19px;
+    max-width:900px;
+    line-height:1.7;
+}
+.hero .highlight{
+    margin-top:12px;
+    font-size:17px;
+    color:#f1f1f1;
+}
+
+/* ================= CANTEENS ================= */
+.canteen-list{
+    padding:90px 40px;
+    text-align:center;
+    background:white;
+}
+.canteen-list h2{font-size:34px}
+.canteen-row{
+    display:flex;
+    justify-content:space-evenly;
+    flex-wrap:wrap;
+    margin-top:40px;
+}
+.canteen-card{
+    width:280px;
+    background:white;
+    border-radius:16px;
+    box-shadow:0 8px 22px rgba(0,0,0,0.18);
+    margin-bottom:35px;
+    cursor:pointer;
+    transition:.35s;
+}
+.canteen-card:hover{
+    transform:translateY(-12px) scale(1.05);
+}
+.img-box{
+    height:180px;
+    overflow:hidden;
+    border-radius:16px 16px 0 0;
+}
+.img-box img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:.5s;
+}
+.canteen-card:hover img{
+    transform:scale(1.15);
+}
+.canteen-card h3{
+    color:#ff6a00;
+    margin:12px 0 6px;
+}
+.canteen-card p{
+    color:#555;
+    font-size:14px;
+}
+
+/* ================= ABOUT ================= */
+.about{
+    padding:90px 18%;
+    text-align:center;
+    background:#f9fafc;
+}
+.about h2{font-size:34px}
+.about p{
+    font-size:17px;
+    color:#444;
+    line-height:1.8;
+    margin-bottom:14px;
+}
+.about .points{
+    margin-top:25px;
+    display:flex;
+    justify-content:center;
+    gap:40px;
+    flex-wrap:wrap;
+}
+.about .point{
+    width:260px;
+    background:white;
+    padding:22px;
+    border-radius:16px;
+    box-shadow:0 6px 15px rgba(0,0,0,0.15);
+}
+.about .point i{
+    font-size:28px;
+    color:#ff6a00;
+    margin-bottom:10px;
+}
+
+/* ================= REVIEWS ================= */
+.testimonials{
+    padding:90px 10%;
+    background:#ffffff;
+    text-align:center;
+}
+.testimonials h2{font-size:34px}
+.test-row{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    flex-wrap:wrap;
+    margin-top:35px;
+}
+.test-card{
+    width:300px;
+    background:#f9fafc;
+    padding:26px;
+    border-radius:16px;
+    box-shadow:0 6px 15px rgba(0,0,0,0.15);
+    transition:.3s;
+}
+.test-card:hover{
+    transform:translateY(-10px);
+}
+.test-card i{color:gold}
+
+/* ================= FOOTER ================= */
+footer{
+    background:#1f1f1f;
+    color:#ddd;
+    padding:60px 12% 30px;
+}
+.footer-row{
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:40px;
+}
+.footer-col{
+    min-width:220px;
+}
+.footer-col h3{
+    color:white;
+    margin-bottom:15px;
+}
+.footer-col p, .footer-col a{
+    color:#ccc;
+    font-size:14px;
+    line-height:1.8;
+    display:block;
+}
+.footer-col a:hover{
+    color:#ff9d3c;
+}
+.social-icons i{
+    margin-right:12px;
+    font-size:20px;
+    color:#ccc;
+    cursor:pointer;
+}
+.social-icons i:hover{
+    color:#ff9d3c;
+}
+.footer-bottom{
+    margin-top:40px;
+    text-align:center;
+    font-size:14px;
+    color:#aaa;
+    border-top:1px solid #333;
+    padding-top:20px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="header-left">
+        <i class="fa-solid fa-utensils"></i>
+        <h1>KL University Canteen</h1>
+        <div class="header-icons">
+            <i class="fa-solid fa-burger"></i>
+            <i class="fa-solid fa-pizza-slice"></i>
+            <i class="fa-solid fa-mug-hot"></i>
+        </div>
+    </div>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#canteens">Canteens</a>
+        <a href="#about">About</a>
+        <a href="#review">Reviews</a>
+    </nav>
+</header>
+
+<!-- HOME -->
+<section class="hero" id="home">
+    <div class="hero-slides">
+        <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2">
+        <img src="https://images.unsplash.com/photo-1543353071-10c8ba85a904">
+        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836">
+        <img src="https://images.unsplash.com/photo-1520201163981-8cc95007dd2a">
+    </div>
+
+    <h2>Welcome to KL University Smart Canteen</h2>
+    <p>
+        A smart digital food ordering platform designed to make campus dining
+        faster, easier, and more convenient.
+    </p>
+    <p class="highlight">
+        Order online • Skip queues • Save time • Enjoy fresh & hygienic meals
+    </p>
+</section>
+
+<script>
+let slideIndex = 0;
+const slides = document.querySelectorAll(".hero-slides img");
+function showSlide(){
+    slides.forEach(img=>{
+        img.style.opacity="0";
+        img.style.transform="scale(1)";
+    });
+    slides[slideIndex].style.opacity="1";
+    slides[slideIndex].style.transform="scale(1.1)";
+    slideIndex = (slideIndex + 1) % slides.length;
+}
+showSlide();
+setInterval(showSlide, 4000);
+</script>
+
+<!-- CANTEENS -->
+<section class="canteen-list" id="canteens">
+    <h2>Available Canteens</h2>
+    <div class="canteen-row">
+        <div class="canteen-card" onclick="location.href='menu.html'">
+            <div class="img-box"><img src="https://tse4.mm.bing.net/th/id/OIP.BSHf87uiTvwJQRxFyRe_TAHaEO"></div>
+            <h3>Main Canteen</h3>
+            <p>Meals • Snacks • Beverages</p>
+        </div>
+        <div class="canteen-card" onclick="location.href='menu.html'">
+            <div class="img-box"><img src="https://images.unsplash.com/photo-1520072959219-c595dc870360"></div>
+            <h3>Food Ka Flavours</h3>
+            <p>Street Food • Fast Food</p>
+        </div>
+        <div class="canteen-card" onclick="location.href='menu.html'">
+            <div class="img-box"><img src="https://img.freepik.com/premium-photo/school-canteen-showcasing-healthy-lunch-options-generative-ai_390829-638.jpg"></div>
+            <h3>Sathish Canteen</h3>
+            <p>South Indian Homely Meals</p>
+        </div>
+        <div class="canteen-card" onclick="location.href='menu.html'">
+            <div class="img-box"><img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092"></div>
+            <h3>Juice & Snacks Hub</h3>
+            <p>Fresh Juices • Milkshakes</p>
+        </div>
+    </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+    <h2>About Smart Canteen</h2>
+    <p>
+        KL University Smart Canteen is a centralized digital food ordering system
+        that connects multiple campus canteens on a single platform.
+    </p>
+    <p>
+        It reduces waiting time, improves order accuracy,
+        and provides a hygienic and seamless dining experience.
+    </p>
+
+    <div class="points">
+        <div class="point">
+            <i class="fa-solid fa-clock"></i>
+            <h4>Time Saving</h4>
+            <p>Order food online and collect without long queues.</p>
+        </div>
+        <div class="point">
+            <i class="fa-solid fa-bowl-food"></i>
+            <h4>Multiple Canteens</h4>
+            <p>Browse menus from all campus canteens.</p>
+        </div>
+        <div class="point">
+            <i class="fa-solid fa-shield-heart"></i>
+            <h4>Hygienic</h4>
+            <p>Safe, clean and organized food preparation.</p>
+        </div>
+    </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="testimonials" id="review">
+    <h2>What Students Say</h2>
+    <div class="test-row">
+        <div class="test-card">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            <p>Food quality is excellent and service is quick.</p>
+            <h4>- Teja</h4>
+        </div>
+        <div class="test-card">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+            <p>Very useful during short breaks.</p>
+            <h4>- Swathi</h4>
+        </div>
+        <div class="test-card">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i>
+            <p>Feels like Swiggy inside campus.</p>
+            <h4>- Manoj</h4>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-row">
+        <div class="footer-col">
+            <h3>Contact Us</h3>
+            <p>Email: support@klcanteen.com</p>
+            <p>Phone: +91 98765 43210</p>
+            <p>Location: KL University Campus</p>
+        </div>
+
+        <div class="footer-col">
+            <h3>Quick Links</h3>
+            <a href="#home">Home</a>
+            <a href="#canteens">Canteens</a>
+            <a href="#about">About</a>
+            <a href="#review">Reviews</a>
+        </div>
+
+        <div class="footer-col">
+            <h3>Legal</h3>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Refund Policy</a>
+        </div>
+
+        <div class="footer-col">
+            <h3>Follow Us</h3>
+            <div class="social-icons">
+                <i class="fab fa-facebook"></i>
+                <i class="fab fa-instagram"></i>
+                <i class="fab fa-twitter"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        © 2025 KL University | Smart Canteen System. All rights reserved.
+    </div>
+</footer>
+
+</body>
+</html>
