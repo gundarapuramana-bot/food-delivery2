@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Receipt — KL Canteen</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  /* ===== RESET ===== */
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:"Poppins",sans-serif;
+  background:#f1f5f9;
+  color:#0f172a;
+  text-align:center;
+}
+
+/* ===== HEADER (SMALL & CLEAN) ===== */
+header{
+  background:#64bbe6;
+  color:#111827;
+  padding:10px;
+  font-size:16px;
+  font-weight:600;
+  border-bottom:1px solid #e5e7eb;
+}
+
+/* ===== RECEIPT CARD ===== */
+.container{
+  max-width:380px;
+  margin:20px auto;
+  background:#ffffff;
+  padding:18px;
+  border-radius:14px;
+  box-shadow:0 12px 28px rgba(15,23,42,.12);
+  animation:fadeIn .6s ease;
+}
+
+/* ===== SUCCESS ICON ===== */
+.success{
+  font-size:34px;
+  font-weight:700;
+  color:#22c55e;
+  margin-bottom:6px;
+}
+
+/* ===== HEADINGS ===== */
+.container h2{
+  font-size:16px;
+  margin:6px 0 12px;
+  color:#1f2937;
+}
+
+.container h3{
+  font-size:14px;
+  margin:14px 0 8px;
+  color:#334155;
+}
+
+/* ===== INFO TEXT ===== */
+.container p{
+  margin:4px 0;
+  font-size:13px;
+  color:#475569;
+}
+
+/* ===== ITEM ROW ===== */
+.item-row{
+  display:flex;
+  justify-content:space-between;
+  padding:8px 2px;
+  font-size:13px;
+  border-bottom:1px dashed #e5e7eb;
+  color:#1f2937;
+}
+
+/* ===== TOTAL ===== */
+.total{
+  font-size:20px;
+  font-weight:700;
+  margin-top:14px;
+  color:#2563eb;
+}
+
+/* ===== ANIMATION ===== */
+@keyframes fadeIn{
+  from{
+    opacity:0;
+    transform:translateY(16px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+/* ===== MOBILE ===== */
+@media(max-width:420px){
+  .container{
+    margin:16px 12px;
+    padding:16px;
+  }
+
+  .success{
+    font-size:30px;
+  }
+}
+
+</style>
+
+</head>
+<body>
+
+<header>Order Receipt</header>
+
+<div class="container">
+  <div class="success">✔ Payment Successful</div>
+
+  <h2>Thank you for your order! 🎉</h2>
+
+  <p><b>Name:</b> <span id="uName"></span></p>
+  <p><b>Roll No:</b> <span id="uRoll"></span></p>
+  <p><b>Order ID:</b> <span id="oCode">Loading...</span></p>
+  <p><b>Date & Time:</b> <span id="dateTime"></span></p>
+
+  <h3>Ordered Items</h3>
+  <div id="itemsList"></div>
+
+  <div class="total" id="totalAmount">Amount: ₹0</div>
+
+  
+  
+</div>
+
+<script>
+const STORAGE_USER = "kl_canteen_user_v1";
+const STORAGE_ITEMS = "kl_canteen_items_v1";
+const STORAGE_TOTAL = "kl_canteen_total_v1";
+const STORAGE_ORDER = "klu_last_order_id";
+
+// Set user info
+const user = JSON.parse(localStorage.getItem(STORAGE_USER) || "{}");
+document.getElementById("uName").innerText = user.name || "-";
+document.getElementById("uRoll").innerText = user.roll || "-";
+
+// Load items
+const items = JSON.parse(localStorage.getItem(STORAGE_ITEMS) || "[]");
+let itemsDiv = document.getElementById("itemsList");
+items.forEach(it => {
+  itemsDiv.innerHTML += `
+  <div class="item-row">
+    <span>${it.name} × ${it.qty}</span>
+    <span>₹${it.price * it.qty}</span>
+  </div>`;
+});
+
+// Total
+document.getElementById("totalAmount").innerHTML = "Amount: ₹" + (localStorage.getItem(STORAGE_TOTAL) || 0);
+
+// Order code saved from backend
+let code = localStorage.getItem(STORAGE_ORDER);
+if (!code) code = "Processing…";
+document.getElementById("oCode").innerText = code;
+
+// Date & Time
+document.getElementById("dateTime").innerText = new Date().toLocaleString();
+
+// Track
+
+
+</script>
+
+</body>
+</html>
